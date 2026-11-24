@@ -1,0 +1,13 @@
+{
+  "name": "santhosh-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.6"
+  },
+  "scripts": {
+    "dev": "node --env-file=.env server.js",
+    "start": "node server.js",
+    "test": "node --test"
+  }
+}
