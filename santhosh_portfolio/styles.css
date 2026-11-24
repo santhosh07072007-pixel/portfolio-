@@ -363,7 +363,7 @@ body {
 .hero-portrait {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center bottom;
   position: relative;
   z-index: 2;
@@ -553,7 +553,7 @@ section {
 }
 
 .skill-category-card:hover {
-  transform: translateY(-500);
+  transform: translateY(-5px);
   border-color: var(--border-lime);
   box-shadow: 0 12px 30px var(--lime-glow);
 }
@@ -930,6 +930,11 @@ section {
   margin-bottom: 1rem;
 }
 
+.resume-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
 .resume-box p {
   color: var(--text-muted);
   margin-bottom: 2.5rem;
@@ -1037,13 +1042,19 @@ section {
   box-shadow: 0 0 15px var(--lime-glow);
 }
 
+.contact-submit {
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
 .contact-status {
   min-height: 1.5em;
   font-size: 0.9rem;
 }
 
-.contact-status.is-success {
-  color: var(--lime-accent);
+.contact-status.is-info {
+  color: var(--text-muted);
 }
 
 .contact-status.is-error {
@@ -1170,7 +1181,7 @@ footer {
   }
   .about-grid,
   .contact-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -1180,12 +1191,35 @@ footer {
   }
   .nav-links {
     display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    padding: 0.75rem 1.5rem 1.25rem;
+    background: rgba(9, 12, 16, 0.98);
+    border-bottom: 1px solid var(--border-color);
+  }
+  .nav-links.active {
+    display: flex;
+  }
+  .nav-links a {
+    display: block;
+    padding: 0.75rem 0;
   }
   .mobile-toggle {
     display: block;
+    border: 0;
+    padding: 0.25rem;
+    background: transparent;
+    cursor: pointer;
   }
   .hero-title {
     font-size: 3rem;
+  }
+  .hero-actions {
+    flex-wrap: wrap;
   }
   .hero-role-box {
     font-size: 1rem;
@@ -1199,6 +1233,27 @@ footer {
   }
   .projects-grid {
     grid-template-columns: 1fr;
+  }
+  .skills-grid,
+  .certs-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-card {
+    padding: 2rem 1.5rem;
+  }
+  .about-highlights {
+    grid-template-columns: 1fr;
+  }
+  .contact-info-list {
+    min-width: 0;
+  }
+  .contact-info-item,
+  .contact-details {
+    min-width: 0;
+  }
+  .contact-details a,
+  .contact-details p {
+    overflow-wrap: anywhere;
   }
   footer {
     flex-direction: column;
