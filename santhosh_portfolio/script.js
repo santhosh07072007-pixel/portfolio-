@@ -134,20 +134,40 @@ document.addEventListener('DOMContentLoaded', () => {
   // 5. CONTACT FORM HANDLER
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const status = document.getElementById('contactStatus');
       const originalText = submitBtn.innerHTML;
 
       submitBtn.disabled = true;
       submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Sending Message...`;
+      status.textContent = '';
+      status.classList.remove('is-error', 'is-success');
 
-      setTimeout(() => {
-        alert("Thank you! Your message has been sent successfully. Santhosh G will get back to you soon!");
+      try {
+        const formData = new FormData(contactForm);
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(formData.entries()))
+        });
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Unable to send your message. Please try again.');
+        }
+
         contactForm.reset();
+        status.textContent = 'Thank you! Your message has been sent successfully.';
+        status.classList.add('is-success');
+      } catch (error) {
+        status.textContent = error.message || 'Unable to send your message. Please try again.';
+        status.classList.add('is-error');
+      } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalText;
-      }, 1200);
+      }
     });
   }
 });
